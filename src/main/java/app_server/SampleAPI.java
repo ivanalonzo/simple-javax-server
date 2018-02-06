@@ -4,6 +4,7 @@ package app_server;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 
@@ -21,5 +22,21 @@ public class SampleAPI {
 	public String helloWorld() {
 		log.info("Hello world");
 		return "Hello, world!";
+	}
+	
+	/*
+	 * This method behaves like the hello world method, but it accepts one query 
+	 * string. The value in the query string is is returned back to the user
+	 * Note there is no error handling in the code, so if the query string is 
+	 * malformed, or invalid, there is a strong possibility the server could crash
+	 */
+	@GET
+	@Path("queryGet")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String differentMethod(
+			@QueryParam(value = "queryString") String queryString
+			) {
+		log.info("This is query GET. The query was: " + queryString);
+		return queryString;
 	}
 }
