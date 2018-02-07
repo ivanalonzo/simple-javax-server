@@ -39,4 +39,28 @@ public class SampleAPI {
 		log.info("This is query GET. The query was: " + queryString);
 		return queryString;
 	}
+	
+	@GET
+	@Path("queryGet2")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String differentMethod(
+			@QueryParam(value = "queryString") String queryString,
+			@QueryParam(value = "queryString2") String queryString2
+			) 
+	{
+		
+	try {
+		
+		int one = Integer.parseInt(queryString.trim());
+		int two = Integer.parseInt(queryString2.trim());
+		int sum = one + two;
+		log.info("This is queryGET. The query was: " + sum);
+		return " " + sum;
+	}
+	catch (NumberFormatException nfe) {
+		
+		log.info("Input not valid. (Input was: " + queryString + ", " + queryString2 + ")");
+		return "Input not valid. (Input was: " + queryString + ", " + queryString2 + ")";
+		}
+	}
 }
